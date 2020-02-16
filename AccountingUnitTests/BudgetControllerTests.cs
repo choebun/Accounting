@@ -32,13 +32,19 @@ namespace AccountingUnitTests
         {
             var viewResult = WhenCreateBudget("202003", 31) as ViewResult;
 
-            StatusShouldContains(viewResult, "succeeded");
+            (viewResult.ViewBag.Status as string).Should().ContainAll("created", "succeeded");
         }
 
-        private static void StatusShouldContains(ViewResult viewResult, string status)
+        [Test]
+        public void update_a_budget_when_budget_existed()
         {
-            (viewResult.ViewBag.Status as string).Should().Contain(status);
+            _budgetService.Save(Arg.Any<string>(), Arg.Any<int>()).ReturnsForAnyArgs(true);
+
+            var viewResult = WhenCreateBudget("202003", 31) as ViewResult;
+
+            (viewResult.ViewBag.Status as string).Should().ContainAll("updated", "succeeded");
         }
+
 
         private void BudgetServiceShouldSave(string yearMonth, int amount)
         {
