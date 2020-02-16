@@ -31,6 +31,11 @@ namespace AccountingWebTests.steps
         {
             AtataContext.Configure().Build();
 
+            using (var dbContext = new AccountingEntitiesForTest())
+            {
+                dbContext.Database.ExecuteSqlCommand("TRUNCATE TABLE [Budgets] ");
+            } 
+
             _createBudgetPage = Go.To<CreateBudgetPage>();
         }
 
