@@ -5,7 +5,7 @@ namespace AccountingWebTests.PageObjects
     using _ = CreateBudgetResultPage;
     public class CreateBudgetResultPage : Page<_>
     {
-        [FindById("status")]
+        [FindByName("Status")]
         public Text<_> Status { get; set; }
     }
 }
