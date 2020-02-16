@@ -25,6 +25,7 @@ namespace AccountingWeb.Controllers
         [HttpPost]
         public ActionResult CreateBudget(string yearMonth, int amount)
         {
+            _budgetService.Save(yearMonth, amount);
             return View();
         }
     }
