@@ -34,7 +34,7 @@ namespace AccountingWebTests.steps
             using (var dbContext = new AccountingEntitiesForTest())
             {
                 dbContext.Database.ExecuteSqlCommand("TRUNCATE TABLE [Budgets] ");
-            } 
+            }
 
             _createBudgetPage = Go.To<CreateBudgetPage>();
         }
@@ -52,6 +52,25 @@ namespace AccountingWebTests.steps
             ScenarioContext.Set(budget);
         }
 
+        [Given(@"there are budgets")]
+        public void GivenThereAreBudgets(Table table)
+        {
+            using (var dbContext = new AccountingEntitiesForTest())
+            {
+                var budgets = table.CreateSet<Budget>();
+                dbContext.Budgets.AddRange(budgets);
+                dbContext.SaveChanges();
+            } 
+        }
+
+        [Then(@"it should be updated succeeded")]
+        public void ThenItShouldBeUpdatedSucceeded()
+        {
+            _createBudgetResultPage
+                .Status.Should.Contain("succeeded")
+                .Status.Should.Contain("updated");
+        }
+
         [When(@"I create")]
         public void WhenICreate()
         {
@@ -63,7 +82,8 @@ namespace AccountingWebTests.steps
         public void ThenItShouldBeCreatedSuccessfully()
         {
             _createBudgetResultPage
-                .Status.Should.Contain("succeeded");
+                .Status.Should.Contain("succeeded")
+                .Status.Should.Contain("created");
         }
 
         [Then(@"there should be budgets existed")]
