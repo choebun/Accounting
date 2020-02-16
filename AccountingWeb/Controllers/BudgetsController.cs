@@ -25,8 +25,10 @@ namespace AccountingWeb.Controllers
         [HttpPost]
         public ActionResult CreateBudget(string yearMonth, int amount)
         {
-            _budgetService.Save(yearMonth, amount);
-            ViewBag.Status = "budget created succeeded!";
+            var isUpdated = _budgetService.Save(yearMonth, amount);
+
+            ViewBag.Status = isUpdated ? "budget updated succeeded!" : "budget created succeeded!";
+
             return View();
         }
     }
