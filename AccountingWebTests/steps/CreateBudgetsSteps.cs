@@ -60,15 +60,14 @@ namespace AccountingWebTests.steps
                 var budgets = table.CreateSet<Budget>();
                 dbContext.Budgets.AddRange(budgets);
                 dbContext.SaveChanges();
-            } 
+            }
         }
 
         [Then(@"it should be updated succeeded")]
         public void ThenItShouldBeUpdatedSucceeded()
         {
             _createBudgetResultPage
-                .Status.Should.Contain("succeeded")
-                .Status.Should.Contain("updated");
+                .Status.Should.ContainAll("succeeded", "updated");
         }
 
         [When(@"I create")]
@@ -82,8 +81,7 @@ namespace AccountingWebTests.steps
         public void ThenItShouldBeCreatedSuccessfully()
         {
             _createBudgetResultPage
-                .Status.Should.Contain("succeeded")
-                .Status.Should.Contain("created");
+                .Status.Should.ContainAll("succeeded", "created");
         }
 
         [Then(@"there should be budgets existed")]
