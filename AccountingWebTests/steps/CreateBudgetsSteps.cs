@@ -1,13 +1,19 @@
 ﻿using System;
+using System.Linq;
+using AccountingWebTests.DataModels;
 using AccountingWebTests.PageObjects;
 using Atata;
 using TechTalk.SpecFlow;
+using TechTalk.SpecFlow.Assist;
 
 namespace AccountingWebTests.steps
 {
     [Binding]
     public class CreateBudgetsSteps : Steps
     {
+        private static CreateBudgetPage _createBudgetPage;
+        private CreateBudgetResultPage _createBudgetResultPage;
+
         [BeforeTestRun]
         public static void SetUpTestRun()
         {
@@ -25,7 +31,7 @@ namespace AccountingWebTests.steps
         {
             AtataContext.Configure().Build();
 
-            Go.To<CreateBudgetPage>();
+            _createBudgetPage = Go.To<CreateBudgetPage>();
         }
 
         [AfterScenario]
@@ -37,25 +43,31 @@ namespace AccountingWebTests.steps
         [Given(@"budget for setting")]
         public void GivenBudgetForSetting(Table table)
         {
-            ScenarioContext.Pending();
+            var budget = table.CreateInstance<Budget>();
+            ScenarioContext.Set(budget);
         }
 
         [When(@"I create")]
         public void WhenICreate()
         {
-            ScenarioContext.Pending();
+            var budget = ScenarioContext.Get<Budget>();
+            _createBudgetResultPage = _createBudgetPage.Create(budget);
         }
 
-        [Then(@"it should be created successfully")]
+        [Then(@"it should be created succeeded")]
         public void ThenItShouldBeCreatedSuccessfully()
         {
-            ScenarioContext.Pending();
+            _createBudgetResultPage
+                .Status.Should.Contain("succeeded");
         }
 
         [Then(@"there should be budgets existed")]
         public void ThenThereShouldBeBudgetsExisted(Table table)
         {
-            ScenarioContext.Pending();
+            using (var dbContext = new AccountingEntitiesForTest())
+            {
+                table.CompareToInstance(dbContext.Budgets.First());
+            }
         }
     }
 }

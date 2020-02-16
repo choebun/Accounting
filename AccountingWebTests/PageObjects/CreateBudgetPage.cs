@@ -1,4 +1,5 @@
-﻿using Atata;
+﻿using AccountingWebTests.DataModels;
+using Atata;
 
 namespace AccountingWebTests.PageObjects
 {
@@ -7,5 +8,9 @@ namespace AccountingWebTests.PageObjects
     [Url("budgets/create")]
     public class CreateBudgetPage : Page<_>
     {
+        public CreateBudgetResultPage Create(Budget budget)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
