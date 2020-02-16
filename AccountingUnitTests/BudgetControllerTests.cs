@@ -10,26 +10,44 @@ namespace AccountingUnitTests
     [TestFixture]
     public class BudgetControllerTests
     {
+        private BudgetsController _budgetsController;
+        private IBudgetService _budgetService;
+
+        [SetUp]
+        public void SetUp()
+        {
+            _budgetService = Substitute.For<IBudgetService>();
+            _budgetsController = new BudgetsController(_budgetService);
+        }
+
         [Test]
         public void create_a_budget_should_invoke_budgetService_save()
         {
-            var budgetService = Substitute.For<IBudgetService>();
-
-            var budgetsController = new BudgetsController(budgetService);
-            budgetsController.CreateBudget("202003", 31);
-
-            budgetService.Received().Save("202003", 31);
+            WhenCreateBudget("202003", 31);
+            BudgetServiceShouldSave("202003", 31);
         }
 
         [Test]
         public void create_a_budget_and_viewResult_should_contain_succeed_status()
         {
-            var budgetService = Substitute.For<IBudgetService>();
+            var viewResult = WhenCreateBudget("202003", 31) as ViewResult;
 
-            var budgetsController = new BudgetsController(budgetService);
-            var viewResult = budgetsController.CreateBudget("202003", 31) as ViewResult;
+            StatusShouldContains(viewResult, "succeeded");
+        }
 
-            (viewResult.ViewBag.Status as string).Should().Contain("succeeded");
+        private static void StatusShouldContains(ViewResult viewResult, string status)
+        {
+            (viewResult.ViewBag.Status as string).Should().Contain(status);
+        }
+
+        private void BudgetServiceShouldSave(string yearMonth, int amount)
+        {
+            _budgetService.Received().Save(yearMonth, amount);
+        }
+
+        private ActionResult WhenCreateBudget(string yearMonth, int amount)
+        {
+            return _budgetsController.CreateBudget(yearMonth, amount);
         }
     }
 }
