@@ -53,26 +53,22 @@ namespace AccountingWeb.Controllers
                 }
             }
 
-            //DateTime dt1 = DateTime.ParseExact(QueryFrom, "yyyyMMdd", null);
-            //DateTime dt2 = DateTime.ParseExact(QueryTo, "yyyyMMdd", null);
-            //var ts = (dt2 - dt1).Days+1;
-
             DateTime queryFromMonthDay = DateTime.ParseExact(YearMonth_Start, "yyyyMMdd", null);
-            var queryFormdaysinMonth = DateTime.DaysInMonth(queryFromMonthDay.Year, queryFromMonthDay.Month);
             var monthFromDays = queryFromMonthDay.Day - 1;
-            var startMonthAccount = monthFromDays * AmountOfDay[(queryFromMonthDay.Year+ queryFromMonthDay.Month).ToString()];
+            var startMonthAccount = monthFromDays * AmountOfDay[(queryFromMonthDay.Year+ queryFromMonthDay.Month.ToString("00")).ToString()];
 
             DateTime queryToMonthDay = DateTime.ParseExact(YearMonth_End, "yyyyMMdd", null);
             var queryTodaysinMonth = DateTime.DaysInMonth(queryToMonthDay.Year, queryToMonthDay.Month);
             var monthToDays = queryTodaysinMonth - queryToMonthDay.Day;
-            var EndMonthAccount = monthToDays * AmountOfDay[(queryToMonthDay.Year + queryToMonthDay.Month).ToString()];
+            var EndMonthAccount = monthToDays * AmountOfDay[(queryToMonthDay.Year + queryToMonthDay.Month.ToString("00")).ToString()];
 
             decimal total = 0;
             while (queryFromMonthDay.Month!= queryToMonthDay.Month)
             {
-                total += AmountOfMon[(queryFromMonthDay.Year + queryFromMonthDay.Month).ToString()];
-                queryFromMonthDay.AddMonths(1);
+                total += AmountOfMon[(queryFromMonthDay.Year + queryFromMonthDay.Month.ToString("00")).ToString()];
+                queryFromMonthDay = queryFromMonthDay.AddMonths(1);
             }
+            total += AmountOfMon[(queryFromMonthDay.Year + queryFromMonthDay.Month.ToString("00")).ToString()];
 
             total = total - EndMonthAccount - startMonthAccount;
 
