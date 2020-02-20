@@ -1,0 +1,21 @@
+﻿
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm("CreateBudget", "Budgets", FormMethod.Post))
+{
+    <div>
+        <span>YearMonth</span>
+        <input type="text" id="YearMonth" name="YearMonth" />
+    </div>
+    <div>
+        <span>Amount</span>
+        <input type="number" id="Amount" name="Amount" />
+    </div>
+
+    <input type="submit" name="Create" value="Create" />
+}
