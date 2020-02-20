@@ -35,7 +35,8 @@ namespace AccountingWeb.Controllers
 
         public ActionResult Query(string YearMonth_Start, string YearMonth_End)
         {
-            Dictionary<DateTime, decimal> MyDic = new Dictionary<DateTime, decimal>();
+            Dictionary<string, decimal> AmountOfDay = new Dictionary<string, decimal>();
+            Dictionary<string, decimal> AmountOfMon = new Dictionary<string, decimal>();
 
             using (var dbContext = new AccountingEntities())
             {
@@ -47,7 +48,8 @@ namespace AccountingWeb.Controllers
                     var daysinMonth = DateTime.DaysInMonth(firstDay.Year, firstDay.Month);
                     var dayAmnout = bufgetList.Amount / daysinMonth;
 
-                    MyDic.Add(firstDay, dayAmnout);
+                    AmountOfDay.Add(bufgetList.YearMonth, dayAmnout);
+                    AmountOfMon.Add(bufgetList.YearMonth, bufgetList.Amount);
                 }
             }
 
@@ -57,15 +59,24 @@ namespace AccountingWeb.Controllers
 
             DateTime queryFromMonthDay = DateTime.ParseExact(YearMonth_Start, "yyyyMMdd", null);
             var queryFormdaysinMonth = DateTime.DaysInMonth(queryFromMonthDay.Year, queryFromMonthDay.Month);
-            var monthFromDays = queryFormdaysinMonth - queryFromMonthDay.Day + 1;
-            var startMonthAccount = monthFromDays * MyDic[DateTime.ParseExact(YearMonth_Start, "yyyyMMdd", null)];
+            var monthFromDays = queryFromMonthDay.Day - 1;
+            var startMonthAccount = monthFromDays * AmountOfDay[(queryFromMonthDay.Year+ queryFromMonthDay.Month).ToString()];
 
             DateTime queryToMonthDay = DateTime.ParseExact(YearMonth_End, "yyyyMMdd", null);
             var queryTodaysinMonth = DateTime.DaysInMonth(queryToMonthDay.Year, queryToMonthDay.Month);
-            var monthToDays = queryTodaysinMonth - queryToMonthDay.Day + 1;
-            var EndMonthAccount = monthToDays * MyDic[DateTime.ParseExact(YearMonth_End, "yyyyMMdd", null)];
+            var monthToDays = queryTodaysinMonth - queryToMonthDay.Day;
+            var EndMonthAccount = monthToDays * AmountOfDay[(queryToMonthDay.Year + queryToMonthDay.Month).ToString()];
 
-            ViewBag.Message = YearMonth_Start;
+            decimal total = 0;
+            while (queryFromMonthDay.Month!= queryToMonthDay.Month)
+            {
+                total += AmountOfMon[(queryFromMonthDay.Year + queryFromMonthDay.Month).ToString()];
+                queryFromMonthDay.AddMonths(1);
+            }
+
+            total = total - EndMonthAccount - startMonthAccount;
+
+            ViewBag.Message = total;
             return View();
         }
     }
