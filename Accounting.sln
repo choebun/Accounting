@@ -1,13 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28010.2046
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29806.167
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AccountingWeb", "AccountingWeb\AccountingWeb.csproj", "{A8D9D242-2F33-412C-8300-6EDD1AB8EA36}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AccountingWebTests", "AccountingWebTests\AccountingWebTests.csproj", "{428FCAD3-C5DF-4B87-9041-074CAB2C1D2C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AccountingUnitTests2", "AccountingUnitTests2\AccountingUnitTests2.csproj", "{79A9EADF-3885-462C-BE82-4634154D3B95}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AccountingUnitTests", "AccountingUnitTests\AccountingUnitTests.csproj", "{A743A3D6-754D-4423-A284-AC855AB5CD9B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +23,10 @@ Global
 		{428FCAD3-C5DF-4B87-9041-074CAB2C1D2C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{428FCAD3-C5DF-4B87-9041-074CAB2C1D2C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{428FCAD3-C5DF-4B87-9041-074CAB2C1D2C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{79A9EADF-3885-462C-BE82-4634154D3B95}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{79A9EADF-3885-462C-BE82-4634154D3B95}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{79A9EADF-3885-462C-BE82-4634154D3B95}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{79A9EADF-3885-462C-BE82-4634154D3B95}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A743A3D6-754D-4423-A284-AC855AB5CD9B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A743A3D6-754D-4423-A284-AC855AB5CD9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A743A3D6-754D-4423-A284-AC855AB5CD9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A743A3D6-754D-4423-A284-AC855AB5CD9B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

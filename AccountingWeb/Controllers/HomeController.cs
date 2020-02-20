@@ -26,5 +26,6 @@ namespace AccountingWeb.Controllers
 
             return View();
         }
+
     }
 }

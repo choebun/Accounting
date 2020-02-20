@@ -257,6 +257,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Budgets\Create.cshtml" />
     <Content Include="Views\Budgets\CreateBudget.cshtml" />
+    <Content Include="Views\Budgets\Query.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
