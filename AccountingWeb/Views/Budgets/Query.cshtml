@@ -1,0 +1,21 @@
+﻿
+@{
+    ViewBag.Title = "Query";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>@ViewBag.Message</h1>
+
+@using (Html.BeginForm("Query", "Budgets", FormMethod.Get))
+{
+    <div>
+        <span>YearMonth Start</span>
+        <input type="text" id="YearMonth_Start" name="YearMonth_Start" />
+    </div>
+    <div>
+        <span>YearMonth End</span>
+        <input type="text" id="YearMonth_End" name="YearMonth_End" />
+    </div>
+   
+    <input type="submit" value="Query" />
+}

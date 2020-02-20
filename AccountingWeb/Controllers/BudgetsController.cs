@@ -31,5 +31,11 @@ namespace AccountingWeb.Controllers
 
             return View();
         }
+
+        public ActionResult Query(string YearMonth_Start, string YearMonth_End)
+        {
+            ViewBag.Message = YearMonth_Start;
+            return View();
+        }
     }
 }
