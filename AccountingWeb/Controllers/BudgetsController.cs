@@ -63,7 +63,7 @@ namespace AccountingWeb.Controllers
             var EndMonthAccount = monthToDays * AmountOfDay[(queryToMonthDay.Year + queryToMonthDay.Month.ToString("00")).ToString()];
 
             decimal total = 0;
-            while (queryFromMonthDay.Month!= queryToMonthDay.Month)
+            while ((queryFromMonthDay.Month!= queryToMonthDay.Month) || (queryFromMonthDay.Year != queryToMonthDay.Year))
             {
                 total += AmountOfMon[(queryFromMonthDay.Year + queryFromMonthDay.Month.ToString("00")).ToString()];
                 queryFromMonthDay = queryFromMonthDay.AddMonths(1);
